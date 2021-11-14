@@ -3,23 +3,34 @@ import Tile from './tile.js';
 
 const PageContainer = () => {
 
-    const [tileActivationGrid, setTileActivationGrid] = useState([false, false, false, false]);
+    const [tileActivationGrid, setTileActivationGrid] = useState([
+        [false, false, false, false],
+        [false, false, false, false],
+    ]);
 
-    const handleOnClick = (tileIndex) => {
+    const handleOnClick = (rowIndex, columnIndex) => {
         const updatedTileActivationGrid = [...tileActivationGrid];
-        updatedTileActivationGrid[tileIndex] = !updatedTileActivationGrid[tileIndex];
+
+        const previous = updatedTileActivationGrid[rowIndex][columnIndex];
+        updatedTileActivationGrid[rowIndex][columnIndex] = !previous;
+        
         setTileActivationGrid(updatedTileActivationGrid);
     };
 
-    const tilesToRender = tileActivationGrid.map((isTileActive, index) => (
-        <Tile
-            key={index}
-            tileIndex={index}
-            content="🐸"
-            isActive={isTileActive}
-            handleOnClick={handleOnClick}
-        />
-    ));
+    const tilesToRender = tileActivationGrid.map((row, rowIndex) => {
+        return row.map((isTileActive, columnIndex) => {
+            return (
+                <Tile
+                    key={`${rowIndex}-${columnIndex}`}
+                    rowIndex={rowIndex}
+                    columnIndex={columnIndex}
+                    content="🐸"
+                    isActive={isTileActive}
+                    handleOnClick={handleOnClick}
+                />
+            );
+        });
+    });
 
     return (
         <div className="page-container">
