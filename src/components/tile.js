@@ -6,13 +6,14 @@ const Tile = (props) => {
         content,
         isActive,
         handleOnClick,
+        tileIndex,
     } = props;
 
     return (
         <Button
             className="tile"
             variant={isActive ? "contained" : "outlined"}
-            onClick={handleOnClick}
+            onClick={() => {handleOnClick(tileIndex);}}
         >
             {content}
         </Button>
