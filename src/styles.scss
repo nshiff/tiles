@@ -13,11 +13,12 @@ body {
 }
 
 .page-container {
-    border: 1px dashed lime;
     height: 100vh;
+    padding: 8px;
 }
 
-.tile {
+.tile.MuiButton-root {
     height: 100px;
     width: 100px;
+    font-size: 40px;
 }
