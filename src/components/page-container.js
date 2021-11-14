@@ -6,6 +6,8 @@ const PageContainer = () => {
     const [tileActivationGrid, setTileActivationGrid] = useState([
         [false, false, false, false],
         [false, false, false, false],
+        [false, false, false, false],
+        [false, false, false, false],
     ]);
 
     const handleOnClick = (rowIndex, columnIndex) => {
@@ -13,24 +15,32 @@ const PageContainer = () => {
 
         const previous = updatedTileActivationGrid[rowIndex][columnIndex];
         updatedTileActivationGrid[rowIndex][columnIndex] = !previous;
-        
+
         setTileActivationGrid(updatedTileActivationGrid);
     };
 
-    const tilesToRender = tileActivationGrid.map((row, rowIndex) => {
-        return row.map((isTileActive, columnIndex) => {
-            return (
-                <Tile
-                    key={`${rowIndex}-${columnIndex}`}
-                    rowIndex={rowIndex}
-                    columnIndex={columnIndex}
-                    content="🐸"
-                    isActive={isTileActive}
-                    handleOnClick={handleOnClick}
-                />
-            );
-        });
-    });
+    const tilesToRender = tileActivationGrid.map((row, rowIndex) => (
+        <div
+            className="row"
+            key={rowIndex}
+        >
+            {
+                row.map((isTileActive, columnIndex) => (
+                    <Tile
+                        key={`${rowIndex}-${columnIndex}`}
+                        rowIndex={rowIndex}
+                        columnIndex={columnIndex}
+                        content="🐸"
+                        isActive={isTileActive}
+                        handleOnClick={handleOnClick}
+                    />
+                ))
+            }
+        </div>
+
+    )
+
+    );
 
     return (
         <div className="page-container">
